@@ -22,10 +22,14 @@ from drf_spectacular.views import SpectacularSwaggerView, SpectacularRedocView, 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('', include('friends_app.urls')),
+    path('chat/', include('chat_app.urls')),
+
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.authtoken')),
 ]

@@ -7,4 +7,15 @@
 <body>
 
 </body>
+<script>
+    let ws = new WebSocket(
+    'ws://' + window.location.host
+    );
+
+    ws.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+
+    };
+
+</script>
 </html>
