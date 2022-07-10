@@ -1,7 +1,11 @@
 import logging
 from datetime import datetime
 
+from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
+
+from.models import Room, Message
+from account_app.models import User
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -30,6 +34,8 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         )
 
         await self.accept()
+
+
 
         logger.info(f'User {self.user} connected to room {self.room_name}')
         await self.send_json({
@@ -80,3 +86,10 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             'message': f'Friendship requested from {friendship.user.username} to {friendship.friend.username}',
         })
 
+    # @database_sync_to_async
+    # def add_user_to_room(self):
+    #     user: User = self.user
+    #     try:
+    #         room = Room.objects.get(name=self.room_name)
+    #         user.current_user.add(room)
+    #
